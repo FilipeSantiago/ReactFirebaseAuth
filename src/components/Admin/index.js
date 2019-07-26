@@ -1,8 +1,9 @@
 import React from 'react';
 import { withAuthorization } from '../Session'
+import NewUserForm from './createUser'
 
 const Admin = () => (
-    <p>Admin Page</p>
+    <NewUserForm />
 );
 
 const neededClaim = "admin"

@@ -120,7 +120,7 @@ function Nav(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Sistema Estacionamento
+            Sistema 
           </Typography>
           <div>
             <Button onClick={logout}>

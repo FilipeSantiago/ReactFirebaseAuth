@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from '../Auth/firebase'
 import * as ROUTES from '../../constants/routes';
+import withAuthentication from './withAuthentication'
 
 const withAuthorization = requiredClaim => Component => {
     class withAuthorization extends React.Component {
@@ -48,7 +49,7 @@ const withAuthorization = requiredClaim => Component => {
             return this.state.isLoading ? <div>LOADING ...</div> : this.state.isAuthorized ? <Component {...this.props} /> : null
         }
     }
-    return withAuthorization;
+    return withAuthentication(withAuthorization);
 }
 
 export default withAuthorization;
