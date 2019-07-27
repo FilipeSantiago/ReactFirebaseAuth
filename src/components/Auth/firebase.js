@@ -42,6 +42,11 @@ class Firebase {
 			return Promise.reject();
 		}
 	}
+
+	async getSessionToken(){
+		var idTokenResult = await this.auth.currentUser.getIdTokenResult();
+		return idTokenResult.token;
+	}
 }
 
 export default new Firebase()

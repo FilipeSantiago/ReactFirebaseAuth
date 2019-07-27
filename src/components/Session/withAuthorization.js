@@ -19,7 +19,7 @@ const withAuthorization = requiredClaim => Component => {
             if(requiredClaim !== undefined){
                 var isAuthorized = firebase.isAuthorized(requiredClaim);
                 if(!isAuthorized) {
-                    this.props.history.replace(ROUTES.UNAUTHORIZED)
+                    this.props.history.replace(ROUTES.FORBIDDEN)
                     return null
                 }
 
@@ -35,7 +35,7 @@ const withAuthorization = requiredClaim => Component => {
                             isLoading: false,
                             isAuthorized: false
                         })
-                        this.props.history.push(ROUTES.UNAUTHORIZED);
+                        this.props.history.push(ROUTES.FORBIDDEN);
                     })
             }else{
                 this.setState({
@@ -45,7 +45,7 @@ const withAuthorization = requiredClaim => Component => {
             }
         }
 
-        render() {           
+        render() {
             return this.state.isLoading ? <div>LOADING ...</div> : this.state.isAuthorized ? <Component {...this.props} /> : null
         }
     }

@@ -1,29 +1,34 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import * as CLAIMS from '../../constants/claims';
 import { Typography, Button } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { useForm } from '../Utils/Form'
+import useCrud from '../Utils/Crud'
 
 function NewUserForm(){
     
-    var stateBuilder = {}
-    CLAIMS.claims.map(x => Object.values(x.permissions).map(x => stateBuilder[x] = false))
-    const [state, setState] = React.useState(stateBuilder);
+    var initialState = {name:"", email:""};
+    CLAIMS.claims.map(x => Object.values(x.permissions).map(x => initialState[x] = false));
 
-    const handleChange = name => event => {
-        setState({ ...state, [name]: event.target.checked })
-    };
+    const createUser = () => {
+        console.log(values);
+    }
     
+    const { values, handleChange, handleCheckedChange, handleSubmit } = useForm(initialState, createUser);
+    const { create } = useCrud("/teste")
+    //create({"awesome": "object"}, () => {console.log("chamou")})
+
     return(
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                         <Grid item xs={4}>
                             <TextField
                                 id="standard-controlled"
+                                onChange={handleChange}
                                 label="Nome"
                                 margin="normal"
                                 fullWidth
@@ -32,6 +37,7 @@ function NewUserForm(){
                         <Grid item xs={8}>
                             <TextField
                                 id="standard-uncontrolled"
+                                onChange={handleChange}
                                 label="E-mail"
                                 margin="normal"
                                 fullWidth
@@ -48,11 +54,13 @@ function NewUserForm(){
                                 Object.keys(claimType.permissions).map(key =>
                                     <FormControlLabel
                                         key={claimType.permissions[key]}
+                                        name={"container" + claimType.permissions[key]}
                                         control={
                                         <Switch
                                             id={claimType.permissions[key]}
-                                            checked={state[claimType.permissions[key]]}
-                                            onChange={handleChange(claimType.permissions[key])}
+                                            checked={values[claimType.permissions[key]]}
+                                            onChange={handleCheckedChange}
+                                            name={claimType.permissions[key]}
                                             value={claimType.permissions[key]}
                                             color="primary"
                                         />
@@ -64,7 +72,7 @@ function NewUserForm(){
                         </Grid>
                     </Grid>
                 )}
-                <Button variant="contained" color="primary">Save</Button>
+                <Button variant="contained" color="primary" type="submit">Save</Button>
             </form>
         </div>
     )

@@ -9,7 +9,7 @@ import * as ROUTES from '../../constants/routes';
 import Nav from '../Navigator'
 import Dashboard from '../Dashboard'
 import Admin from '../Admin'
-import Unauthorized from '../Unauthorized'
+import Forbidden from '../Forbidden'
 
 
 const theme = createMuiTheme()
@@ -33,7 +33,7 @@ export default function App(props) {
 					<Nav>
 						<Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
 						<Route exact path={ROUTES.ADMIN} component={Admin} />
-						<Route exact path={ROUTES.UNAUTHORIZED} component={Unauthorized} />
+						<Route exact path={ROUTES.FORBIDDEN} component={Forbidden} />
 					</Nav>
 				</Switch>
 			</Router>
